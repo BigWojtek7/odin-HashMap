@@ -9,4 +9,11 @@ console.log(newHashmap.set("Mickey", "walley"))
 
 console.dir(newHashmap, {depth: null})
 
-console.log(newHashmap.has("Fred"))
+console.log(newHashmap.remove("Fred"))
+
+console.log(newHashmap.length())
+newHashmap.clear()
+console.dir(newHashmap, {depth: null})
+console.log(newHashmap.set("Fred", "Bisset"))
+console.dir(newHashmap, {depth: null})
+

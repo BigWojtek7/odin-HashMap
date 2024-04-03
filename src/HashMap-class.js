@@ -35,33 +35,67 @@ class HashMap {
     }
   }
 
-  get(key){
+  get(key) {
     const number = this.hash(key);
     let current;
-    if (!this.brackets[number])return null
-    
-    current = this.brackets[number]
+    if (!this.brackets[number]) return null;
+
+    current = this.brackets[number];
     while (current.nextNode) {
-      if(Object.keys(current)[0] === key) return current[key]
-      current= current.nextNode;
+      if (Object.keys(current)[0] === key) return current[key];
+      current = current.nextNode;
     }
-    return null
+    return null;
   }
 
-  has(key){
+  has(key) {
     const number = this.hash(key);
     let current;
-    if (!this.brackets[number])return false
-    
-    current = this.brackets[number]
+    if (!this.brackets[number]) return false;
+
+    current = this.brackets[number];
     while (current.nextNode) {
-      if(Object.keys(current)[0] === key) return true
-      current= current.nextNode;
+      if (Object.keys(current)[0] === key) return true;
+      current = current.nextNode;
     }
-    return false
+    return false;
   }
 
-  
+  remove(key) {
+    const number = this.hash(key);
+    let current;
+    let prev = null;
+    if (!this.brackets[number]) return false;
+
+    current = this.brackets[number];
+    while (current.nextNode) {
+      if (current.nextNode !== null) prev = current;
+      if (Object.keys(current)[0] === key) {
+        if (current.nextNode === null) prev.nextNode = current.nextNode;
+        return true;
+      }
+      current = current.nextNode;
+    }
+    return false;
+  }
+
+  length() {
+    let count = 0;
+    this.brackets.forEach((element) => {
+      count += 1;
+      let current = element;
+      while (current.nextNode){
+        count += 1;
+        current = current.nextNode;
+      }
+    });
+    return count;
+  }
+
+  clear() {
+    this.brackets.length = 0;
+    return 'Hashmap cleared'
+  }
 }
 
 export default HashMap;
