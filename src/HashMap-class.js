@@ -13,27 +13,25 @@ class HashMap {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
       hashCode %= 16;
     }
-
     return hashCode;
   }
 
   set(key, value) {
     const number = HashMap.hash(key);
-    
+
     const newNode = new Node(key, value);
-    console.log("1", this.brackets[number])
+    console.log("1", this.brackets[number]);
     let current;
 
     if (!this.brackets[number]) {
       this.brackets[number] = newNode;
-      
     } else {
       current = this.brackets[number];
-      console.log("3", current[key])
+      console.log("3", current[key]);
       while (current) {
-        if (Object.keys(current)[0] === key){
-          current[key] = value
-          return
+        if (Object.keys(current)[0] === key) {
+          current[key] = value;
+          return;
         }
         current = current.nextNode;
       }
@@ -69,17 +67,27 @@ class HashMap {
 
   remove(key) {
     const number = HashMap.hash(key);
-    let current;
-    let prev = null;
+
     if (!this.brackets[number]) return false;
 
-    current = this.brackets[number];
-    while (current.nextNode) {
-      if (current.nextNode !== null) prev = current;
+    let current = this.brackets[number];
+    if (!current.nextNode) {
+      console.log("current", current);
+      this.brackets[number] = null;
+      return true;
+    }
+
+    let prev = current;
+    while (current) {
       if (Object.keys(current)[0] === key) {
-        if (current.nextNode === null) prev.nextNode = current.nextNode;
+        if (!current.nextNode) {
+          prev.nextNode = null;
+          return true;
+        }
+        prev.nextNode = current.nextNode;
         return true;
       }
+      prev = current;
       current = current.nextNode;
     }
     return false;
@@ -88,11 +96,14 @@ class HashMap {
   length() {
     let count = 0;
     this.brackets.forEach((element) => {
-      count += 1;
-      let current = element;
-      while (current.nextNode){
+      if (element) {
         count += 1;
-        current = current.nextNode;
+        let current = element;
+        console.log(current);
+        while (current.nextNode) {
+          count += 1;
+          current = current.nextNode;
+        }
       }
     });
     return count;
@@ -100,55 +111,49 @@ class HashMap {
 
   clear() {
     this.brackets.length = 0;
-    return 'Hashmap cleared'
+    return "Hashmap cleared";
   }
 
-  keys(){
-    const keys = []
+  keys() {
+    const keys = [];
     this.brackets.forEach((element) => {
-      
       let current = element;
-      keys.push(Object.keys(element)[0])
-      
-      while (current.nextNode){
-        
+      keys.push(Object.keys(element)[0]);
+
+      while (current.nextNode) {
         current = current.nextNode;
-        keys.push(Object.keys(current)[0])
+        keys.push(Object.keys(current)[0]);
       }
-      
     });
-    return keys
+    return keys;
   }
 
-  values(){
-    const values = []
+  values() {
+    const values = [];
     this.brackets.forEach((element) => {
-      
       let current = element;
-      values.push(Object.values(element)[0])
-      
-      while (current.nextNode){
+      values.push(Object.values(element)[0]);
+
+      while (current.nextNode) {
         current = current.nextNode;
-        values.push(Object.values(current)[0])
+        values.push(Object.values(current)[0]);
       }
-      
     });
-    return values
+    return values;
   }
 
-  entries(){
-    const entries = []
+  entries() {
+    const entries = [];
     this.brackets.forEach((element) => {
-      
       let current = element;
-      entries.push(Object.entries(element)[0])
-      
-      while (current.nextNode){
+      entries.push(Object.entries(element)[0]);
+
+      while (current.nextNode) {
         current = current.nextNode;
-        entries.push(Object.entries(current)[0])
+        entries.push(Object.entries(current)[0]);
       }
     });
-    return entries
+    return entries;
   }
 }
 
