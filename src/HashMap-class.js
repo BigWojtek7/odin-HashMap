@@ -5,7 +5,7 @@ class HashMap {
     this.brackets = new Array(16);
   }
 
-  hash(key) {
+  static hash(key) {
     let hashCode = 0;
 
     const primeNumber = 31;
@@ -18,17 +18,23 @@ class HashMap {
   }
 
   set(key, value) {
-    const number = this.hash(key);
-
+    const number = HashMap.hash(key);
+    
     const newNode = new Node(key, value);
-
+    console.log("1", this.brackets[number])
     let current;
 
     if (!this.brackets[number]) {
       this.brackets[number] = newNode;
+      
     } else {
       current = this.brackets[number];
-      while (current.nextNode) {
+      console.log("3", current[key])
+      while (current) {
+        if (Object.keys(current)[0] === key){
+          current[key] = value
+          return
+        }
         current = current.nextNode;
       }
       current.nextNode = newNode;
@@ -49,7 +55,7 @@ class HashMap {
   }
 
   has(key) {
-    const number = this.hash(key);
+    const number = HashMap.hash(key);
     let current;
     if (!this.brackets[number]) return false;
 
@@ -62,7 +68,7 @@ class HashMap {
   }
 
   remove(key) {
-    const number = this.hash(key);
+    const number = HashMap.hash(key);
     let current;
     let prev = null;
     if (!this.brackets[number]) return false;
