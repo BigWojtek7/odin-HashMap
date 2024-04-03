@@ -96,6 +96,54 @@ class HashMap {
     this.brackets.length = 0;
     return 'Hashmap cleared'
   }
+
+  keys(){
+    const keys = []
+    this.brackets.forEach((element) => {
+      
+      let current = element;
+      keys.push(Object.keys(element)[0])
+      
+      while (current.nextNode){
+        
+        current = current.nextNode;
+        keys.push(Object.keys(current)[0])
+      }
+      
+    });
+    return keys
+  }
+
+  values(){
+    const values = []
+    this.brackets.forEach((element) => {
+      
+      let current = element;
+      values.push(Object.values(element)[0])
+      
+      while (current.nextNode){
+        current = current.nextNode;
+        values.push(Object.values(current)[0])
+      }
+      
+    });
+    return values
+  }
+
+  entries(){
+    const entries = []
+    this.brackets.forEach((element) => {
+      
+      let current = element;
+      entries.push(Object.entries(element)[0])
+      
+      while (current.nextNode){
+        current = current.nextNode;
+        entries.push(Object.entries(current)[0])
+      }
+    });
+    return entries
+  }
 }
 
 export default HashMap;
