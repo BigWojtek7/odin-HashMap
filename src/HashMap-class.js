@@ -23,7 +23,7 @@ class HashMap {
     const newNode = new Node(key, value);
 
     let current;
-    console.log(this.brackets[number])
+
     if (!this.brackets[number]) {
       this.brackets[number] = newNode;
     } else {
@@ -34,6 +34,34 @@ class HashMap {
       current.nextNode = newNode;
     }
   }
+
+  get(key){
+    const number = this.hash(key);
+    let current;
+    if (!this.brackets[number])return null
+    
+    current = this.brackets[number]
+    while (current.nextNode) {
+      if(Object.keys(current)[0] === key) return current[key]
+      current= current.nextNode;
+    }
+    return null
+  }
+
+  has(key){
+    const number = this.hash(key);
+    let current;
+    if (!this.brackets[number])return false
+    
+    current = this.brackets[number]
+    while (current.nextNode) {
+      if(Object.keys(current)[0] === key) return true
+      current= current.nextNode;
+    }
+    return false
+  }
+
+  
 }
 
 export default HashMap;
