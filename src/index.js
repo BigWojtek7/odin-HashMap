@@ -3,4 +3,7 @@ import Node from "./node-class.js";
 
 
 const newHashmap = new HashMap;
-console.log(new Node("Fred", "Smith"))
+console.log(newHashmap.set("Fred", "Smith"))
+console.log(newHashmap.set("Fred", "walley"))
+
+console.log(newHashmap)
